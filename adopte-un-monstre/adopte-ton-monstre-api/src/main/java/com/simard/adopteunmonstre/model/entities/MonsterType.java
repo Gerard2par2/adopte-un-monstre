@@ -13,20 +13,20 @@ public class MonsterType {
 
     private String name;
 
-    @ElementCollection
-    private List<String> strengths;
+    @ManyToMany
+    private List<MonsterType> strengths;
 
-    @ElementCollection
-    private List<String> weaknesses;
+    @ManyToMany
+    private List<MonsterType> weaknesses;
 
     @OneToMany(mappedBy = "monsterType")
     private List<MonsterMonsterType> monsterMonsterTypes;
 
-    public List<String> getWeaknesses() {
+    public List<MonsterType> getWeaknesses() {
         return weaknesses;
     }
 
-    public List<String> getStrengths() {
+    public List<MonsterType> getStrengths() {
         return strengths;
     }
 
@@ -38,11 +38,11 @@ public class MonsterType {
         return name;
     }
 
-    public void setWeaknesses(List<String> weaknesses) {
+    public void setWeaknesses(List<MonsterType> weaknesses) {
         this.weaknesses = weaknesses;
     }
 
-    public void setStrengths(List<String> strengths) {
+    public void setStrengths(List<MonsterType> strengths) {
         this.strengths = strengths;
     }
 
