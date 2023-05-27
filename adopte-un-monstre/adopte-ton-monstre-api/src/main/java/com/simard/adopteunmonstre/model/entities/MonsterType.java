@@ -19,6 +19,9 @@ public class MonsterType {
     @ElementCollection
     private List<String> weaknesses;
 
+    @OneToMany(mappedBy = "monsterType")
+    private List<MonsterMonsterType> monsterMonsterTypes;
+
     public List<String> getWeaknesses() {
         return weaknesses;
     }
@@ -49,6 +52,14 @@ public class MonsterType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<MonsterMonsterType> getMonsterMonsterTypes() {
+        return monsterMonsterTypes;
+    }
+
+    public void setMonsterMonsterTypes(List<MonsterMonsterType> monsterMonsterTypes) {
+        this.monsterMonsterTypes = monsterMonsterTypes;
     }
 
     @Override
