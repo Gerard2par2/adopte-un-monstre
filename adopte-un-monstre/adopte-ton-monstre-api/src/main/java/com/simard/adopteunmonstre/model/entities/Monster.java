@@ -3,6 +3,7 @@ package com.simard.adopteunmonstre.model.entities;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Monster {
@@ -11,25 +12,13 @@ public class Monster {
     private Long id;
 
     private String name;
-    private String type;
     private String description;
 
-    @ElementCollection
-    private List<String> strengths;
-
-    @ElementCollection
-    private List<String> weaknesses;
+    @OneToMany(mappedBy = "monster")
+    private List<MonsterMonsterType> monsterMonsterTypes;
 
     public Long getId() {
         return id;
-    }
-
-    public List<String> getStrengths() {
-        return strengths;
-    }
-
-    public List<String> getWeaknesses() {
-        return weaknesses;
     }
 
     public String getDescription() {
@@ -38,10 +27,6 @@ public class Monster {
 
     public String getName() {
         return name;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public void setDescription(String description) {
@@ -56,15 +41,33 @@ public class Monster {
         this.name = name;
     }
 
-    public void setStrengths(List<String> strengths) {
-        this.strengths = strengths;
+    public List<MonsterMonsterType> getMonsterMonsterTypes() {
+        return monsterMonsterTypes;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMonsterMonsterTypes(List<MonsterMonsterType> monsterMonsterTypes) {
+        this.monsterMonsterTypes = monsterMonsterTypes;
     }
 
-    public void setWeaknesses(List<String> weaknesses) {
-        this.weaknesses = weaknesses;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Monster monster)) return false;
+        return Objects.equals(getId(), monster.getId()) && Objects.equals(getName(), monster.getName()) && Objects.equals(getDescription(), monster.getDescription()) && Objects.equals(getMonsterMonsterTypes(), monster.getMonsterMonsterTypes());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getDescription(), getMonsterMonsterTypes());
+    }
+
+    @Override
+    public String toString() {
+        return "Monster{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", monsterMonsterTypes=" + monsterMonsterTypes +
+                '}';
     }
 }

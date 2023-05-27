@@ -3,6 +3,7 @@ package com.simard.adopteunmonstre.model.entities;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class MonsterType {
@@ -48,5 +49,27 @@ public class MonsterType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MonsterType that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getStrengths(), that.getStrengths()) && Objects.equals(getWeaknesses(), that.getWeaknesses());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getStrengths(), getWeaknesses());
+    }
+
+    @Override
+    public String toString() {
+        return "MonsterType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", strengths=" + strengths +
+                ", weaknesses=" + weaknesses +
+                '}';
     }
 }
