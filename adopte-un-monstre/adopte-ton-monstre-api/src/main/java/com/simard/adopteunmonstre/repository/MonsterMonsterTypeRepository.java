@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonsterMonsterTypeRepository extends CrudRepository<MonsterMonsterType, Long> {
+    public Iterable<MonsterMonsterType> findByMonsterId(Long monsterId);
 }
