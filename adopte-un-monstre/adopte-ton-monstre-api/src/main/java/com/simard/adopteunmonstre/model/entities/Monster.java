@@ -20,5 +20,51 @@ public class Monster {
     @ElementCollection
     private List<String> weaknesses;
 
-    // getters and setters...
+    public Long getId() {
+        return id;
+    }
+
+    public List<String> getStrengths() {
+        return strengths;
+    }
+
+    public List<String> getWeaknesses() {
+        return weaknesses;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStrengths(List<String> strengths) {
+        this.strengths = strengths;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setWeaknesses(List<String> weaknesses) {
+        this.weaknesses = weaknesses;
+    }
 }
