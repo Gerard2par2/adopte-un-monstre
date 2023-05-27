@@ -6,6 +6,12 @@ import java.util.Objects;
 
 @Entity
 public class MonsterMonsterType {
+
+    public MonsterMonsterType(Monster monster, MonsterType monsterType) {
+        this.monster = monster;
+        this.monsterType = monsterType;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +21,10 @@ public class MonsterMonsterType {
 
     @ManyToOne
     private MonsterType monsterType;
+
+    public MonsterMonsterType() {
+        this(null, null);
+    }
 
     public void setId(Long id) {
         this.id = id;

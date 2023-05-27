@@ -28,7 +28,7 @@ public class MonsterService {
         return this.monsterRepository.findById(id);
     }
 
-    public Iterable<Monster> findByType(List<MonsterMonsterType> types) {
+    public Iterable<Monster> findByType(List<MonsterType> types) {
         return this.monsterRepository.findByMonsterMonsterTypes(types);
     }
 

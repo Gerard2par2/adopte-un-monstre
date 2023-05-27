@@ -1,15 +1,20 @@
 package com.simard.adopteunmonstre.controllers;
 
+import com.simard.adopteunmonstre.mappers.MonsterMapper;
 import com.simard.adopteunmonstre.model.entities.Monster;
 import com.simard.adopteunmonstre.model.entities.MonsterMonsterType;
+import com.simard.adopteunmonstre.model.entities.MonsterType;
+import com.simard.adopteunmonstre.model.entities.dto.monster.MonsterDto;
 import com.simard.adopteunmonstre.services.MonsterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @RestController
 @RequestMapping("/monster")
@@ -23,28 +28,27 @@ public class MonsterController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Monster>> getAllMonsters() {
+    public ResponseEntity<Iterable<MonsterDto>> getAllMonsters() {
         Iterable<Monster> monsters = monsterService.getAllMonsters();
-        return ResponseEntity.ok(monsters);
+        return ResponseEntity.ok(MonsterMapper.toMonsterDtos((List<Monster>) monsters));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Monster> getMonsterById(@PathVariable("id") Long id) {
+    public ResponseEntity<MonsterDto> getMonsterById(@PathVariable("id") Long id) {
         Optional<Monster> monster = monsterService.getMonsterById(id);
-        return monster.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return monster.map(value -> ResponseEntity.ok(MonsterMapper.toMonsterDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/types")
-    public ResponseEntity<Iterable<Monster>> getMonstersByTypes(@RequestBody List<MonsterMonsterType> types) {
+    public ResponseEntity<Iterable<MonsterDto>> getMonstersByTypes(@RequestBody List<MonsterType> types) {
         Iterable<Monster> monsters = monsterService.findByType(types);
-        return ResponseEntity.ok(monsters);
+        return ResponseEntity.ok(MonsterMapper.toMonsterDtos((List<Monster>) monsters));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Monster> createMonster(@RequestBody Monster newMonster) {
-        Monster createdMonster = monsterService.create(newMonster);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMonster);
+    public ResponseEntity<MonsterDto> createMonster(@RequestBody MonsterDto newMonster) {
+        Monster createdMonster = monsterService.create(MonsterMapper.toMonster(newMonster));
+        return ResponseEntity.status(HttpStatus.CREATED).body(MonsterMapper.toMonsterDto(createdMonster));
     }
 
     @DeleteMapping("/{id}")
@@ -54,14 +58,14 @@ public class MonsterController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Iterable<Monster>> getMonstersByUserId(@PathVariable("userId") Long userId) {
+    public ResponseEntity<Iterable<MonsterDto>> getMonstersByUserId(@PathVariable("userId") Long userId) {
         Iterable<Monster> monsters = monsterService.findAllByUserId(userId);
-        return ResponseEntity.ok(monsters);
+        return ResponseEntity.ok(MonsterMapper.toMonsterDtos((List<Monster>) monsters));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Monster> updateMonster(@PathVariable("id") Long id, @RequestBody Monster updatedMonster) {
+    public ResponseEntity<MonsterDto> updateMonster(@PathVariable("id") Long id, @RequestBody Monster updatedMonster) {
         Monster updated = monsterService.updateById(id, updatedMonster);
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(MonsterMapper.toMonsterDto(updated));
     }
 }

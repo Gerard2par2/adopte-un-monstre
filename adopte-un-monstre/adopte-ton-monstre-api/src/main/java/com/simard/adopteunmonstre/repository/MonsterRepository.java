@@ -15,7 +15,7 @@ public interface MonsterRepository extends CrudRepository<Monster, Long> {
     @Query("SELECT m FROM Monster m where m.id = (select a.monster.id from Adoption a where a.user.id = :userId) ")
     List <Monster> findAllByUserId(Long userId);
 
-    @Query("SELECT m FROM Monster m where m.id in (select mmt.monster.id from MonsterMonsterType mmt where mmt.monsterType in :monsterMonsterTypes)")
-    List<Monster> findByMonsterMonsterTypes(List<MonsterMonsterType> monsterMonsterTypes);
+    @Query("SELECT m FROM Monster m where m.id in (select mmt.monster.id from MonsterMonsterType mmt where mmt.monsterType in :monsterTypes)")
+    List<Monster> findByMonsterMonsterTypes(List<MonsterType> monsterTypes);
 
 }
