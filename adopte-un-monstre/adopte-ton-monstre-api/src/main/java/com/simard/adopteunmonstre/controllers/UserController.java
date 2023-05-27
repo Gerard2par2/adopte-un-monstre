@@ -1,13 +1,11 @@
 package com.simard.adopteunmonstre.controllers;
 
 import com.simard.adopteunmonstre.mappers.UserMapper;
-import com.simard.adopteunmonstre.model.entities.User;
 import com.simard.adopteunmonstre.model.entities.dto.user.UserDto;
 import com.simard.adopteunmonstre.model.entities.dto.user.UserLoginEmailDto;
 import com.simard.adopteunmonstre.model.entities.dto.user.UserLoginUserNameDto;
 import com.simard.adopteunmonstre.model.entities.dto.user.UserSignInDto;
 import com.simard.adopteunmonstre.services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
